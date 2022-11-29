@@ -1,4 +1,6 @@
+from argparse import ArgumentParser
 from dataclasses import dataclass
+from typing import cast
 
 from .merge import merge_pdfs
 from .select import select_pdfs
@@ -11,7 +13,7 @@ class Args:
     output: str | None
 
 
-def main(cli_args: Args):
+def entrypoint(cli_args: Args):
     print(
         r"""
   _____  _____  ______ __  __
@@ -27,3 +29,19 @@ def main(cli_args: Args):
     pdfs = select_pdfs(cli_args.files)
     pdfs = sort_pdfs(pdfs)
     merge_pdfs(pdfs, cli_args.output)
+
+
+def main() -> None:
+    # CLI args
+    parser = ArgumentParser()
+    parser.add_argument("files", nargs="*")
+    parser.add_argument("-o", "--output", help="output filename")
+    args = parser.parse_args()
+    args = cast(Args, args)
+    # print(args)
+
+    entrypoint(args)
+
+
+if __name__ == "__main__":
+    main()

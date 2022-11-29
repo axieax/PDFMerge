@@ -1,0 +1,18 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "pdfmerge"
+description = "Merge PDF files with sane defaults"
+readme = "README.md"
+version = "0.0.1"
+authors = [{ name = "axieax" }]
+requires-python = ">=3"
+dependencies = ["PyPDF2"]
+
+[project.scripts]
+pdfmerge = "pdfmerge:main"
+
+[tool.setuptools.packages.find]
+include = ["pdfmerge"]
